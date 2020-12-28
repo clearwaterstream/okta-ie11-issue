@@ -8,4 +8,3 @@ Playing around with IE11
 1. Run `yarn start` or `npm start`
 1. Open IE11 and go to [https://localhost:3000](https://localhost:3000)
 1. Login use the username and password
-1. The issue will occur
