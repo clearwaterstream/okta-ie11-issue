@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
 import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
 import { AuthService } from 'Services/AuthService';
@@ -25,13 +25,11 @@ function Routes() {
 
     return (
         <Security oktaAuth={AuthService.authClient} onAuthRequired={onAuthRequiredHandler} >
-            <Suspense fallback={() => <>loading...</>}>
-                <Switch>
-                    <SecureRoute path="/" exact component={LogoutButton} />
-                    <Route path="/login" component={Login} />
-                    <Route path='/implicit/callback' component={LoginCallback} />
-                </Switch>
-            </Suspense>
+            <Switch>
+                <SecureRoute path="/" exact component={LogoutButton} />
+                <Route path="/login" component={Login} />
+                <Route path='/implicit/callback' component={LoginCallback} />
+            </Switch>
         </Security>
     );
 }
