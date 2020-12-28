@@ -1,0 +1,50 @@
+{
+  "name": "okta-ie11-issue",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "4.11.0",
+    "@material-ui/icons": "4.9.1",
+    "@okta/okta-auth-js": "4.5.0",
+    "@okta/okta-react": "4.1.0",
+    "@unicef/material-ui-currency-textfield": "0.8.6",
+    "base64url": "3.0.1",
+    "fastestsmallesttextencoderdecoder": "1.0.22",
+    "react": "16.14.0",
+    "react-app-polyfill": "1.0.6",
+    "react-dom": "16.14.0",
+    "react-i18next": "11.7.3",
+    "react-router-dom": "5.2.0",
+    "react-scripts": "3.4.4"
+  },
+  "devDependencies": {
+    "env-cmd": "10.1.0"
+  },
+  "scripts": {
+    "start": "env-cmd -f .env react-scripts start",
+    "build": "react-scripts build"
+  },
+  "eslintConfig": {
+    "extends": "react-app",
+    "rules": {
+      "no-new-func": "error",
+      "no-eval": "error",
+      "no-implied-eval": "error"
+    }
+  },
+  "browserslist": {
+    "production": [
+      "> 5% in CA",
+      "last 2 versions",
+      "not dead",
+      "not op_mini all",
+      "IE 11"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version",
+      "IE 11"
+    ]
+  }
+}
