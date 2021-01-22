@@ -70,8 +70,6 @@ function Login(props) {
 
     const [rememberMe, setRememberMe] = useState(rememberMeInitial);
 
-    const [sessionToken, setSessionToken] = useState();
-
     const [errorMsg, setErrorMsg] = useState('');
     const [busy, setBusy] = useState(false);
 
@@ -149,8 +147,6 @@ function Login(props) {
 
             const sessionToken = resp.sessionToken;
 
-            setSessionToken(sessionToken);
-
             if(rememberMe)
             {
                 WebStorageHelper.setItemToDisk('login_page', 'username', username);
@@ -158,20 +154,15 @@ function Login(props) {
 
             // const usernameFromUserObj = resp.user.profile.login;
 
-            AuthService.authClient.signInWithRedirect({ sessionToken });
+            await AuthService.authClient.signInWithRedirect({ sessionToken });
         }
         catch (err) {
+            setBusy(false);
+            
             logger.error("Error logging in", err);
 
             setErrorMsg("Could not log you in. Please check your credentials.");
         }
-
-        setBusy(false);
-    }
-
-    if (sessionToken) {
-        // Hide form while sessionToken is converted into id/access tokens
-        return null;
     }
 
     return (

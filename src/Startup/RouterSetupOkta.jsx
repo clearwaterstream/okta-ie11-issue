@@ -9,7 +9,7 @@ function LogoutButton(props) {
     return (
         <Button
             variant="contained"
-            onClick={() => { AuthService.authClient.signOut() }}
+            onClick={async () => { await AuthService.signOut() }}
         >
             Logout
         </Button>
@@ -19,8 +19,13 @@ function LogoutButton(props) {
 function Routes() {
     const hist = useHistory();
 
-    function onAuthRequiredHandler() {
+
+    function onAuthRequiredHandler(oktaAuth) {
+        AuthService.onPreLogin();
+        
         hist.push('/login');
+
+        return Promise.resolve();
     }
 
     return (

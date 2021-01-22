@@ -6,17 +6,20 @@ class WebStorageHelper {
         return this._storageAvailable(window.sessionStorage);
     }
 
-    static isLocalStorageAvailable()
-    {
+    static isLocalStorageAvailable() {
         return this._storageAvailable(window.localStorage);
     }
 
     static _composeKey(area, key) {
+        if (StringUtil.isNullOrEmpty(area)) {
+            return key;
+        }
+
         return `${area}_${key}`;
     }
 
     static setItem(area, key, value) {
-        if(!this.isSessionStorageAvailable()) {
+        if (!this.isSessionStorageAvailable()) {
             return;
         }
 
@@ -26,7 +29,7 @@ class WebStorageHelper {
     }
 
     static setItemToDisk(area, key, value) {
-        if(!this.isLocalStorageAvailable()) {
+        if (!this.isLocalStorageAvailable()) {
             return;
         }
 
@@ -35,9 +38,9 @@ class WebStorageHelper {
         window.localStorage.setItem(compositeKey, value);
     }
 
-    
+
     static getItem(area, key) {
-        if(!this.isSessionStorageAvailable()) {
+        if (!this.isSessionStorageAvailable()) {
             return;
         }
 
@@ -48,8 +51,18 @@ class WebStorageHelper {
         return val;
     }
 
+    static removeItem(area, key) {
+        if (!this.isSessionStorageAvailable()) {
+            return;
+        }
+
+        const compositeKey = this._composeKey(area, key);
+
+        window.sessionStorage.removeItem(compositeKey);
+    }
+
     static getItemFromDisk(area, key) {
-        if(!this.isLocalStorageAvailable()) {
+        if (!this.isLocalStorageAvailable()) {
             return;
         }
 
@@ -61,17 +74,17 @@ class WebStorageHelper {
     }
 
     static removeFromDisk(area, key) {
-        if(!this.isLocalStorageAvailable()) {
+        if (!this.isLocalStorageAvailable()) {
             return;
         }
-        
+
         const compositeKey = this._composeKey(area, key);
 
         window.localStorage.removeItem(compositeKey);
     }
 
     static clearAll() {
-        if(!this.isSessionStorageAvailable()) {
+        if (!this.isSessionStorageAvailable()) {
             return;
         }
 

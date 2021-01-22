@@ -1,4 +1,5 @@
 import { OktaAuth } from '@okta/okta-auth-js';
+import WebStorageHelper from 'Util/WebStorageHelper';
 
 class AuthService {
     oktaAuth;
@@ -19,6 +20,18 @@ class AuthService {
     
     get authClient() {
         return this.oktaAuth;
+    }
+
+    onPreLogin() {
+        WebStorageHelper.removeItem('okta-pkce-storage');
+        WebStorageHelper.removeFromDisk('okta-pkce-storage');
+    }
+
+    async signOut() {
+        WebStorageHelper.removeItem('okta-pkce-storage');
+        WebStorageHelper.removeFromDisk('okta-pkce-storage');
+        
+        await this.oktaAuth.signOut();
     }
 }
 
