@@ -1,6 +1,8 @@
 # OKTA on IE
 Playing around with IE11
 
+This is the "working" version. Master has the IE 11 issue.
+
 # Install and reproduce the issue
 1. Clone the repository
 1. Browse to the root of project and run `yarn` to install node modules
