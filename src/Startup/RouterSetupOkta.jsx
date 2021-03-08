@@ -9,7 +9,7 @@ function LogoutButton(props) {
     return (
         <Button
             variant="contained"
-            onClick={() => { AuthService.authClient.signOut() }}
+            onClick={async () => { await AuthService.authClient.signOut() }}
         >
             Logout
         </Button>
