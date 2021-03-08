@@ -125,3 +125,8 @@ if (!String.prototype.endsWith) {
         return this.substring(this_len - search.length, this_len) === search;
     };
 }
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN#polyfill
+Number.isNaN = Number.isNaN || function isNaN(input) {
+    return typeof input === 'number' && input !== input;
+}
