@@ -4,6 +4,7 @@ import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
 import { AuthService } from 'Services/AuthService';
 import Login from 'Auth/Login';
 import { Button } from '@material-ui/core';
+import { toRelativeUrl } from '@okta/okta-auth-js';
 
 function LogoutButton(props) {
     return (
@@ -18,13 +19,25 @@ function LogoutButton(props) {
 
 function Routes() {
     const hist = useHistory();
-
-    function onAuthRequiredHandler() {
+    
+    function onAuthRequiredHandler(oktaAuth) {
+        AuthService.onPreLogin();
+        
         hist.push('/login');
+
+        return Promise.resolve();
     }
 
+    function restoreOriginalUri(oktaAuth, originalUri) {
+        const newUri = toRelativeUrl(originalUri, window.location.origin);
+        
+        hist.replace(newUri);
+        
+        return Promise.resolve();
+    }
+    
     return (
-        <Security oktaAuth={AuthService.authClient} onAuthRequired={onAuthRequiredHandler} >
+        <Security oktaAuth={AuthService.authClient} onAuthRequired={onAuthRequiredHandler} restoreOriginalUri={restoreOriginalUri}>
             <Switch>
                 <SecureRoute path="/" exact component={LogoutButton} />
                 <Route path="/login" component={Login} />
