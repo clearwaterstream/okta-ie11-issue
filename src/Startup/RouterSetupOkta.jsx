@@ -20,9 +20,7 @@ function LogoutButton(props) {
 function Routes() {
     const hist = useHistory();
     
-    function onAuthRequiredHandler(oktaAuth) {
-        AuthService.onPreLogin();
-        
+    function onAuthRequiredHandler(oktaAuth) {        
         hist.push('/login');
 
         return Promise.resolve();
